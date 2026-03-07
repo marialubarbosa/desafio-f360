@@ -1,0 +1,54 @@
+# Dependências
+node_modules/
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Build
+dist/
+dist-ssr/
+*.local
+
+# Ambientes
+.env
+.env.local
+.env.*.local
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+*.sublime-project
+*.sublime-workspace
+.vscode-test
+launch.json
+settings.json
+
+# Sistema Operacional
+.DS_Store
+Thumbs.db
+.directory
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Arquivos temporários
+.cache/
+.temp/
+tmp/
+
+# Arquivos de teste
+coverage/
+.nyc_output/
+
+# Miscellaneous
+.env.*.local
+*.pem
