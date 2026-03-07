@@ -27,11 +27,11 @@ onMounted(() => {
 .container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 2rem 1rem;
+  /* padding: 2rem 1rem; */
 }
 
 header {
-  margin-bottom: 2rem;
+  /* margin-bottom: 2rem; */
 }
 
 header h1 {

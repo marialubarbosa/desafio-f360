@@ -3,13 +3,14 @@ import HomeView from './views/HomeView.vue'
 </script>
 
 <template>
-  <div id="app">
-    <HomeView />
+  <div class="bg-red-100 p-4">
+    <HomeView />  
   </div>
+  
 </template>
 
 <style>
-* {
+/* * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -28,5 +29,5 @@ body {
 #app {
   width: 100%;
   height: 100%;
-}
+} */
 </style>
