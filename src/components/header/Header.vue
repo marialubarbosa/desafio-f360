@@ -1,0 +1,16 @@
+<script setup lang="ts">
+import Button from '../Button.vue';
+
+</script>
+
+<template>
+    <div class="flex justify-between items-center mb-6">
+        <h2 class="text-[24px] font-semibold">Dashboard</h2>
+        <Button
+            label="Nova Transação"
+            icon="add"
+            size="md"
+            @click="console.log('Nova Transação')"
+        />
+    </div>
+</template>

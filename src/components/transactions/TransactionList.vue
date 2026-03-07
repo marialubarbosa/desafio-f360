@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { useVirtualList } from '@vueuse/core'
 import { ref } from 'vue'
 

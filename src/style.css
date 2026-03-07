@@ -4,4 +4,22 @@
 @tailwind components;
 @tailwind utilities;
 
+@theme {
+  --color-primary: #1313EC;
+  --color-secondary: #1E1E9C;
+  --color-terciary: #F0F0FF;
+  --color-quaternary: #DBDBFF;
+  --color-success: #22C55E;
+  --color-danger: #EF4444;
+  --color-warning: #F59E0B;
+}
+
+/* base overrides */
+@layer base {
+  body {
+    /* directly use Manrope so Tailwind preprocessing isn't required */
+    font-family: 'Manrope', sans-serif;
+  }
+}
+
 
