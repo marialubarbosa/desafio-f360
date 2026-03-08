@@ -6,7 +6,7 @@ defineEmits(['add'])
 
 <template>
     <div class="flex justify-between items-center mb-6">
-        <h2 class="text-[24px] font-semibold">Dashboard</h2>
+        <h2 class="text-lg md:text-[24px] font-semibold">Dashboard</h2>
         <Button
             label="Nova Transação"
             icon="add"

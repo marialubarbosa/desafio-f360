@@ -29,11 +29,11 @@ defineEmits(['delete'])
 
 <template>
   <div class="rounded-3xl border border-neutral-200 bg-white">
-    <div class="p-6 text-[18px] font-semibold">
+    <div class="p-4 md:p-6 text-base md:text-[18px] font-semibold">
       Transações Recentes
     </div>
 
-    <div class="border-t border-neutral-200 bg-neutral-50 p-6 flex gap-4">
+    <div class="border-t border-neutral-200 bg-neutral-50 p-4 md:p-6 flex flex-col md:flex-row gap-2 md:gap-4">
       <Input
         v-model="search"
         placeholder="Filtrar por descrição..."

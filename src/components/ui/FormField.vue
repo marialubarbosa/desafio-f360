@@ -6,9 +6,9 @@ defineProps<{
 </script>
 
 <template>
-  <div class="mt-2 mb-4">
+  <div class="mt-1 md:mt-2 mb-2 md:mb-4">
 
-    <label class="text-[14px] text-neutral-600">
+    <label class="text-xs md:text-[14px] text-neutral-600">
       {{ label }}
     </label>
 

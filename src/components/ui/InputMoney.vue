@@ -56,7 +56,7 @@ watch(
 
     <input
       :class="[
-        'w-full rounded-full border bg-white py-3 pl-12 pr-4 outline-none focus:ring-2',
+        'w-full rounded-full border bg-white py-2 md:py-3 pl-10 md:pl-12 pr-2 md:pr-4 outline-none focus:ring-2',
         error
           ? 'border-red-500 focus:ring-red-400'
           : 'border-gray-200 focus:ring-indigo-500'

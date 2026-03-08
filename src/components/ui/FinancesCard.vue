@@ -16,11 +16,11 @@ const iconBgClass = computed(() => props.iconBg ?? 'bg-neutral-300')
 
 <template>
   <div
-    class="flex flex-col justify-between rounded-3xl border border-neutral-200 bg-white p-6 shadow-sm transition hover:shadow-md"
+    class="flex flex-col justify-between rounded-3xl border border-neutral-200 bg-white p-4 md:p-6 shadow-sm transition hover:shadow-md"
   >
     <!-- header -->
     <div class="flex items-center justify-between">
-      <span class="text-neutral-500 text-[14px]">
+      <span class="text-neutral-500 text-xs md:text-[14px]">
         {{ title }}
       </span>
 
@@ -36,7 +36,7 @@ const iconBgClass = computed(() => props.iconBg ?? 'bg-neutral-300')
     </div>
 
     <!-- value -->
-    <div class="mt-6 text-[30px] font-bold text-neutral-900">
+    <div class="mt-4 md:mt-6 text-2xl md:text-[20px] font-bold text-neutral-900">
       {{ value }}
     </div>
 

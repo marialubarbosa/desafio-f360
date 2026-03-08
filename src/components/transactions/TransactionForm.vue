@@ -57,7 +57,7 @@ const onSubmit = handleSubmit((values) => {
     </FormField>
 
 
-    <div class="grid grid-cols-2 gap-4">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-4">
 
         <FormField
         label="Valor"
@@ -108,7 +108,7 @@ const onSubmit = handleSubmit((values) => {
     </FormField>
 
 
-    <div class="flex justify-between pt-2">
+    <div class="flex flex-col md:flex-row justify-between gap-2 pt-2">
 
       <Button
         variant="white"

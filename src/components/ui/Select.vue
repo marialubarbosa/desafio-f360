@@ -11,8 +11,7 @@ const emit = defineEmits(['update:modelValue'])
 <template>
   <select
     :class="[
-      'rounded-full w-full border bg-white px-4 py-3 text-gray-700 outline-none focus:ring-2',
-      
+      'rounded-full w-full border bg-white px-2 md:px-4 py-2 md:py-3 text-gray-700 outline-none focus:ring-2',
       error
         ? 'border-danger focus:ring-red-400'
         : 'border-neutral-200 focus:ring-indigo-500'

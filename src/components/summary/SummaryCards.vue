@@ -12,7 +12,7 @@ const totalExpense = computed(() => `R$ ${store.totalExpense.toFixed(2)}`)
 </script>
 
 <template>
-  <div class="grid grid-cols-3 gap-6 mb-8">
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 mb-4 md:mb-8">
     <FinancesCard
       title="Saldo Total"
       :value="balance"

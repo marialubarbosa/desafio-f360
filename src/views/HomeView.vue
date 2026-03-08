@@ -24,7 +24,6 @@ onMounted(() => {
 })
 
 function addTransaction(updated: Transaction) {
-  console.log(`updated`, updated)
   store.addTransaction({...updated })
   isModalOpen.value = false
 }
@@ -50,9 +49,10 @@ function openModalAdd() {
 </script>
 
 <template>
-  <div class="flex h-screen">
+
+  <div class="flex flex-col md:flex-row min-h-screen">
     <Sidebar />
-    <main class="flex-1 p-6 bg-neutral-50">
+    <main class="flex-1 p-2 md:p-6 bg-neutral-50 min-h-screen">
       <Header @add="openModalAdd"/>
       <SummaryCards />
       <TransactionTableCard @delete="openModalDelete"/>

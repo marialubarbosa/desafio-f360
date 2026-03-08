@@ -37,7 +37,6 @@ function confirm() {
 }
 
 function save(values: any) {
-  console.log(`values`, values)
   emit('save', { ...values })
 }
 

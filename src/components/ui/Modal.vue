@@ -22,10 +22,10 @@ function close() {
         class="fixed inset-0 z-50 flex items-center justify-center bg-black/40"
       >
         <div
-          class="w-[440px] rounded-3xl bg-white shadow-xl overflow-hidden"
+          class="w-full max-w-[440px] mx-2 md:mx-0 rounded-xl md:rounded-3xl bg-white shadow-xl overflow-hidden"
         >
           <!-- header -->
-          <div class="flex justify-between items-start p-6">
+          <div class="flex justify-between items-start p-4 md:p-6">
             <div>
               <h2 class="text-2xl font-semibold text-gray-900">
                 {{ title }}
@@ -47,7 +47,7 @@ function close() {
           <div class="border-t border-neutral-200"></div>
 
           <!-- body -->
-          <div class="p-6">
+          <div class="p-4 md:p-6">
             <slot />
           </div>
         </div>

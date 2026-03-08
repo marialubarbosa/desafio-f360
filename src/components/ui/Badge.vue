@@ -16,7 +16,7 @@ const styles = {
 
 <template>
   <span
-    class="rounded-full px-3 py-1 text-sm font-medium"
+    class="rounded-full px-2 md:px-3 py-0.5 md:py-1 text-xs md:text-sm font-medium"
     :class="styles[variant]"
   >
     <slot />
