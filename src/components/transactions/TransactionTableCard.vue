@@ -1,31 +1,30 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { computed } from 'vue'
 import Input from '../ui/Input.vue'
 import Select from '../ui/Select.vue'
 import TransactionTable from './TransactionTable.vue'
+
 import { categories } from '../../mocks/transactionsMock'
 import { useTransactionStore } from '../../stores/transactionStore'
-import type { Transaction } from '../../types/transaction'
+import { useTransactionFilter } from '../../composables/useTransactionFilter'
 
 const store = useTransactionStore()
-const transactions = computed(() => store.transactions);
-const categoriesOptions = categories.map(c => ({ label: c, value: c }));
-const search = ref<string>('')
-const category = ref<string>('')
-const type = ref<string>('')
 
-const filtered = computed(() => {
-  return transactions.value.filter((t: Transaction) => {
-    return (
-      (!search.value ||
-        t.description.toLowerCase().includes(search.value.toLowerCase())) &&
-      (!category.value || t.category === category.value) &&
-      (!type.value || t.type === type.value)
-    )
-  })
-})
+const transactions = computed(() => store.transactions)
 
-const emit = defineEmits(['delete'])
+const {
+  search,
+  category,
+  type,
+  filteredTransactions
+} = useTransactionFilter(() => transactions.value)
+
+const categoriesOptions = categories.map(c => ({
+  label: c,
+  value: c
+}))
+
+defineEmits(['delete'])
 </script>
 
 <template>
@@ -59,7 +58,7 @@ const emit = defineEmits(['delete'])
 
     <div v-if="transactions.length > 0" class="">
       <TransactionTable
-        :transactions="filtered"
+        :transactions="filteredTransactions"
         @delete="$emit('delete', $event)"
       />
     </div>
