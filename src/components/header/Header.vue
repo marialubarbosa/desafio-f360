@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import Button from '../Button.vue';
+import Button from '../ui/Button.vue';
 
+defineEmits(['add'])
 </script>
 
 <template>
@@ -10,7 +11,7 @@ import Button from '../Button.vue';
             label="Nova Transação"
             icon="add"
             size="md"
-            @click="console.log('Nova Transação')"
+            @click="$emit('add')"
         />
     </div>
 </template>

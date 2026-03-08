@@ -4,7 +4,7 @@ import { computed } from 'vue'
 
 interface Props {
   label?: string
-  variant?: 'primary' | 'secondary' | 'danger'
+  variant?: 'primary' | 'secondary' | 'danger' | 'white'
   size?: 'sm' | 'md' | 'lg'
   loading?: boolean
   disabled?: boolean
@@ -30,7 +30,8 @@ const baseStyle =
 const variantClasses = {
   primary: 'bg-primary text-white hover:bg-secondary',
   secondary: 'bg-quaternary text-gray-800 hover:bg-terciary',
-  danger: 'bg-danger text-white hover:bg-danger/90'
+  danger: 'bg-danger text-white hover:bg-danger/90',
+  white: 'bg-white text-primary border border-neutral-300 hover:bg-neutral-100'
 }
 
 const sizeClasses = {
@@ -53,7 +54,7 @@ const classes = computed(() => [
 <template>
   <button
     :class="classes"
-    :disabled="disabled || loading"
+    :disabled="props.disabled || props.loading"
     @click="emit('click')"
   >
     <span
