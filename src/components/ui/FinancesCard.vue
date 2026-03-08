@@ -37,7 +37,7 @@ const iconBgClass = computed(() => props.iconBg ?? 'bg-neutral-300')
 
     <!-- value -->
     <div class="mt-6 text-[30px] font-bold text-neutral-900">
-      R$ {{ value }}
+      {{ value }}
     </div>
 
   </div>

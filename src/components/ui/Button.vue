@@ -10,6 +10,7 @@ interface Props {
   disabled?: boolean
   icon?: string
   block?: boolean
+  type?: 'button' | 'submit' | 'reset'
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -53,6 +54,7 @@ const classes = computed(() => [
 
 <template>
   <button
+    :type="props.type"
     :class="classes"
     :disabled="props.disabled || props.loading"
     @click="emit('click')"

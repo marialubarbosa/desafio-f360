@@ -28,6 +28,7 @@ export const useTransactionStore = defineStore('transactions', {
     },
 
     addTransaction(transaction: Transaction) {
+      transaction.id = crypto.randomUUID()
       this.transactions.unshift(transaction)
     },
 

@@ -1,12 +1,7 @@
 <script setup lang="ts">
-interface Option {
-  label: string
-  value: string
-}
-
 defineProps<{
   modelValue: string
-  options: Option[]
+  options: { label: string; value: string }[]
 }>()
 
 const emit = defineEmits(['update:modelValue'])
@@ -17,13 +12,10 @@ const emit = defineEmits(['update:modelValue'])
     <button
       v-for="opt in options"
       :key="opt.value"
-      @click="emit('update:modelValue', opt.value)"
+      type="button"
       class="flex-1 rounded-full px-4 py-2 text-sm font-medium transition"
-      :class="
-        modelValue === opt.value
-          ? 'bg-white shadow text-gray-900'
-          : 'text-gray-500'
-      "
+      :class="modelValue === opt.value  ? 'bg-white shadow text-gray-900' : 'text-gray-500'"
+      @click="emit('update:modelValue', opt.value)"
     >
       {{ opt.label }}
     </button>

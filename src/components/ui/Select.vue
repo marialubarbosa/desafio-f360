@@ -1,33 +1,33 @@
 <script setup lang="ts">
-interface Option {
-  label: string
-  value: string
-}
-
-interface Props {
+defineProps<{
   modelValue: string
-  options: Option[]
-}
-
-defineProps<Props>()
+  options: { label: string; value: string }[]
+  error?: boolean
+}>()
 
 const emit = defineEmits(['update:modelValue'])
 </script>
 
 <template>
   <select
-    class="rounded-full w-full border border-gray-200 bg-white px-4 py-3 text-gray-700 outline-none focus:ring-2 focus:ring-indigo-500 "
+    :class="[
+      'rounded-full w-full border bg-white px-4 py-3 text-gray-700 outline-none focus:ring-2',
+      
+      error
+        ? 'border-danger focus:ring-red-400'
+        : 'border-neutral-200 focus:ring-indigo-500'
+    ]"
     :value="modelValue"
-    @change="emit('update:modelValue', ($event.target as HTMLSelectElement).value)"
+    @change="emit('update:modelValue', $event.target.value)"
   >
-    <option value="">Todos</option>
+    <option value="">Selecione</option>
 
     <option
-      v-for="option in options"
-      :key="option.value"
-      :value="option.value"
+      v-for="opt in options"
+      :key="opt.value"
+      :value="opt.value"
     >
-      {{ option.label }}
+      {{ opt.label }}
     </option>
   </select>
 </template>

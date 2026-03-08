@@ -16,15 +16,17 @@ const modalType = ref<'add' | 'delete'>('add')
 const selectedTransaction = ref<Transaction | null>(null)
 
 onMounted(() => {
-  const transactions = ref(generateTransactions());
-  store.setTransactions(transactions.value)
+  if (store.transactions.length === 0) {
+    const transactions = ref(generateTransactions());
+    store.setTransactions(transactions.value)
+  }
+
 })
 
 function addTransaction(updated: Transaction) {
-  if (selectedTransaction.value) {
-    store.addTransaction({ ...selectedTransaction.value, ...updated })
-    isModalOpen.value = false
-  }
+  console.log(`updated`, updated)
+  store.addTransaction({...updated })
+  isModalOpen.value = false
 }
 
 function deleteTransaction  () {
