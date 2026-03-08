@@ -42,12 +42,12 @@ function randomDate() {
 export function generateTransactions(
   total = 30000
 ): Transaction[] {
-  return Array.from({ length: total }).map((_, index) => {
+  return Array.from({ length: total }).map((_) => {
     const type = Math.random() > 0.5 ? 'income' : 'expense'
 
     return {
-      id: String(index),
-      description: `${randomItem(descriptions)} ${index}`,
+      id: crypto.randomUUID(),
+      description: `${randomItem(descriptions)}`,
       value: Number((Math.random() * 5000).toFixed(2)),
       type,
       category: randomItem(categories),

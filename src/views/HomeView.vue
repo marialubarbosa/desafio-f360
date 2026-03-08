@@ -2,13 +2,13 @@
 import { onMounted } from 'vue'
 import SummaryCards from '../components/summary/SummaryCards.vue'
 import { useTransactionStore } from '../stores/transactionStore'
-import { generateTransactions } from '../utils/generateTransactions'
-import Sidebar from '../components/sidebar/Sidebar.vue'
+ import Sidebar from '../components/sidebar/Sidebar.vue'
 import Header from '../components/header/Header.vue'
 import TransactionTableCard from '../components/transactions/TransactionTableCard.vue'
 import TransactionModal from '../components/transactions/TransactionModal.vue'
 import type { Transaction } from '../types/transaction'
 import { ref } from 'vue'
+import { generateTransactions } from '../mocks/transactionsMock'
 
 const store = useTransactionStore()
 const isModalOpen = ref<boolean>(false)
@@ -16,8 +16,8 @@ const modalType = ref<'add' | 'delete'>('add')
 const selectedTransaction = ref<Transaction | null>(null)
 
 onMounted(() => {
-  const transactions = generateTransactions(30000)
-  store.setTransactions(transactions)
+  const transactions = ref(generateTransactions());
+  store.setTransactions(transactions.value)
 })
 
 function addTransaction(updated: Transaction) {
@@ -27,9 +27,9 @@ function addTransaction(updated: Transaction) {
   }
 }
 
-function deleteTransaction  (transaction: Transaction) {
-  if (transaction) {
-    store.removeTransaction(transaction.id)
+function deleteTransaction  () {
+  if (selectedTransaction.value) {
+    store.removeTransaction(selectedTransaction.value.id)
     isModalOpen.value = false
   }
 }

@@ -6,11 +6,12 @@ import Select from '../ui/Select.vue'
 import Button from '../ui/Button.vue'
 import Segmented from '../ui/Segmented.vue'
 import { categories } from '../../mocks/transactionsMock'
+import type { Transaction } from '../../types/transaction'
 
 
 const props = defineProps<{
   modelValue: boolean
-  transaction?: any
+  transaction?: Transaction
   type?: 'add' | 'delete'
 }>()
 
@@ -34,6 +35,14 @@ const form = reactive({
 
 function close() {
   emit('update:modelValue', false)
+}
+
+function confirm() {
+  if (props.type === 'add') {
+    save()
+  } else {
+    remove()
+  }
 }
 
 function save() {
@@ -119,7 +128,7 @@ function remove() {
 
         <Button
           :variant="type === 'delete' ? 'danger' : 'primary'"
-          @click="save"
+          @click="confirm"
         >
           {{`${type === 'delete' ? 'Excluir' : 'Salvar Alterações'}`}}
         </Button>

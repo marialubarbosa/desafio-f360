@@ -32,7 +32,10 @@ export const useTransactionStore = defineStore('transactions', {
     },
 
     removeTransaction(id: string) {
-      this.transactions = this.transactions.filter(t => t.id !== id)
+      const index =this.transactions.findIndex(t => t.id === id)
+      if (index !== -1) {
+        this.transactions.splice(index, 1)
+      }
     }
   }
 })

@@ -3,16 +3,19 @@ import { ref, computed } from 'vue'
 import Input from '../ui/Input.vue'
 import Select from '../ui/Select.vue'
 import TransactionTable from './TransactionTable.vue'
-import { generateTransactions, categories } from '../../mocks/transactionsMock'
+import { categories } from '../../mocks/transactionsMock'
+import { useTransactionStore } from '../../stores/transactionStore'
+import type { Transaction } from '../../types/transaction'
 
-const transactions = ref(generateTransactions());
+const store = useTransactionStore()
+const transactions = computed(() => store.transactions);
 const categoriesOptions = categories.map(c => ({ label: c, value: c }));
-const search = ref('')
-const category = ref('')
-const type = ref('')
+const search = ref<string>('')
+const category = ref<string>('')
+const type = ref<string>('')
 
 const filtered = computed(() => {
-  return transactions.value.filter((t: any) => {
+  return transactions.value.filter((t: Transaction) => {
     return (
       (!search.value ||
         t.description.toLowerCase().includes(search.value.toLowerCase())) &&
@@ -54,7 +57,7 @@ const emit = defineEmits(['delete'])
       />
     </div>
 
-    <div class="">
+    <div v-if="transactions.length > 0" class="">
       <TransactionTable
         :transactions="filtered"
         @delete="$emit('delete', $event)"
