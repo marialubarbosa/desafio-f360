@@ -2,7 +2,10 @@
 
 # desafio-f360
 
-Gerenciador de Transações Financeiras
+Este projeto é uma implementação de uma listagem de transações financeiras desenvolvida como parte de um desafio técnico. O objetivo principal foi construir uma interface performática capaz de lidar com um grande volume de dados, mantendo boa organização de código e boas práticas de desenvolvimento frontend.
+
+A aplicação permite visualizar, filtrar e explorar uma lista de transações financeiras simuladas.
+
 
 ## Índice
 
