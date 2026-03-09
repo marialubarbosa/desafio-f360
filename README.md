@@ -1,76 +1,88 @@
 
+
 # desafio-f360
+
 Gerenciador de Transações Financeiras
 
-## Arquitetura Avançada
+## Índice
 
-O projeto segue uma arquitetura modular, separando responsabilidades em pastas específicas:
+- [Sobre o Projeto](#sobre-o-projeto)
+- [Instalação](#instalacao)
+- [Rodando o Projeto](#rodando-o-projeto)
+- [Estrutura de Pastas](#estrutura-de-pastas)
+- [Decisões Técnicas](#decisoes-tecnicas)
+- [Screenshots](#screenshots)
+- [Boas Práticas](#boas-praticas)
+- [Estilização com Tailwind CSS](#estilizacao-com-tailwind-css)
 
-- **components/**: Componentes Vue reutilizáveis, organizados por domínio.
-- **layouts/**: Layouts globais para páginas.
-- **views/**: Páginas principais da aplicação.
-- **stores/**: Gerenciamento de estado (Pinia).
-- **services/**: Serviços para lógica de negócio e integração (ex: API, mocks).
-- **composables/**: Hooks reutilizáveis (Vue 3 Composition API).
-- **schemas/**: Schemas de validação (ex: Zod).
-- **types/**: Tipos TypeScript globais.
-- **utils/**: Funções utilitárias e helpers.
-- **constants/**: Constantes globais do projeto.
-- **mocks/**: Dados mockados para desenvolvimento.
 
-## Aliases de Imports
+## Sobre o Projeto
 
-Para facilitar a manutenção e evitar imports relativos complexos, utilize os aliases definidos em `tsconfig.app.json` e `vite.config.ts`:
+Aplicação para gerenciamento de transações financeiras, construída com Vue 3, Vite, TypeScript, Pinia e Tailwind CSS. O objetivo é demonstrar arquitetura escalável, boas práticas e código limpo.
 
-- `@/` → `src/`
-- `@components/` → `src/components/`
-- `@views/` → `src/views/`
-- `@stores/` → `src/stores/`
-- `@services/` → `src/services/`
-- `@composables/` → `src/composables/`
-- `@schemas/` → `src/schemas/`
-- `@types/` → `src/types/`
-- `@utils/` → `src/utils/`
-- `@constants/` → `src/constants/`
-- `@layouts/` → `src/layouts/`
-- `@mocks/` → `src/mocks/`
+## Instalação
 
-## Boas Práticas
+Clone o repositório e instale as dependências:
 
-- Componentes e arquivos em `kebab-case` para Vue, `camelCase` para arquivos TypeScript.
-- Separação clara de responsabilidades.
-- Uso de barrel files (`index.ts`) para facilitar imports.
-- Serviços desacoplados da UI.
-- Utilização de schemas para validação de dados.
-- Utilização de composables para lógica reutilizável.
+```bash
+git clone <url-do-repositorio>
+cd desafio-f360
+npm install
+# ou yarn
+```
 
-## Estilização com Tailwind CSS
+## Rodando o Projeto
 
-O projeto já está configurado para usar Tailwind CSS via Vite. Para começar:
+Para rodar em modo desenvolvimento:
 
-1. Instale as dependências:
+```bash
+npm run dev
+# ou yarn dev
+```
 
-   ```bash
-   npm install
-   # ou yarn
-   ```
+Para build de produção:
 
-2. As diretivas do Tailwind (`@tailwind base`, `@tailwind components` e `@tailwind utilities`) estão em `src/style.css`.
+```bash
+npm run build
+# ou yarn build
+```
 
-3. Importe o CSS global em `src/main.ts` (já feito):
-
-   ```ts
-   import './style.css'
-   ```
-
-4. Modifique `tailwind.config.js` para ajustar os caminhos ou estender o tema.
-
-5. Execute o servidor de desenvolvimento:
-
-   ```bash
-   npm run dev
-   ```
-
-6. Utilize classes utilitárias do Tailwind nos componentes.
+## Estrutura de Pastas
 
 ```
+src/
+   components/      # Componentes Vue reutilizáveis
+   layouts/         # Layouts globais
+   views/           # Páginas principais
+   stores/          # Estado global (Pinia)
+   services/        # Serviços de API/lógica
+   composables/     # Hooks reutilizáveis
+   schemas/         # Schemas de validação (Zod)
+   types/           # Tipos TypeScript globais
+   utils/           # Funções utilitárias
+   constants/       # Constantes globais
+   mocks/           # Dados mockados
+   assets/          # Imagens e assets estáticos
+```
+
+## Decisões Técnicas
+
+- **Vue 3 + Vite + TypeScript**: Para performance, tipagem e DX moderna.
+- **Pinia**: Gerenciamento de estado simples e escalável.
+- **Tailwind CSS**: Rapidez e padronização visual.
+- **Zod**: Validação de schemas de formulário.
+- **Aliases de Imports**: Facilita manutenção e evita imports relativos longos.
+- **Arquitetura Modular**: Separação clara de responsabilidades.
+- **Barrel Files**: Facilita imports e refatoração.
+- **Mocks**: Permite desenvolvimento sem backend.
+
+## Screenshots
+
+Adicione aqui prints da aplicação rodando:
+
+![Dashboard](image.png)
+![Modal de Transação](image-1.png)
+
+
+
+
