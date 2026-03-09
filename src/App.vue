@@ -1,13 +1,20 @@
 <script setup lang="ts">
-import HomeView from './views/HomeView.vue'
+import { ref } from 'vue';
+import DashboardView from '@views/Dashboard/DashboardView.vue';
+import DefaultLayout from '@layouts/DefaultLayout.vue';
+
+const dashboardView = ref();
+
+function openModalAdd() {
+  dashboardView.value?.openAddModal();
+}
 </script>
 
+
 <template>
-  <div class="p-1 md:p-4">
-    <HomeView />  
-  </div>
-  
+  <DefaultLayout @add="openModalAdd">
+    <DashboardView ref="dashboardView"/>
+  </DefaultLayout>
 </template>
 
-<style>
-</style>
+<style></style>

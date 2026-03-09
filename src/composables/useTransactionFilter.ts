@@ -1,6 +1,6 @@
 import { ref, computed } from 'vue'
 import { useDebounce } from '@vueuse/core'
-import type { Transaction } from '../types/transaction'
+import type { Transaction } from '@/types/transaction'
 
 export function useTransactionFilter(transactions: () => Transaction[]) {
   const search = ref('')

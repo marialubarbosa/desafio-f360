@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { useTransactionStore } from '../../stores/transactionStore'
-import FinancesCard from '../ui/FinancesCard.vue'
+import { useTransactionStore } from '@/stores/transactionStore'
+import FinancesCard from '@/components/ui/FinancesCard.vue'
 import { computed } from 'vue'
 
 const store = useTransactionStore()

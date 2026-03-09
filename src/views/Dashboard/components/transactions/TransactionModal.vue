@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import Modal from '../ui/Modal.vue'
-import Button from '../ui/Button.vue'
-import type { Transaction } from '../../types/transaction'
-import TransactionForm from './TransactionForm.vue'
+import Modal from '@/components/ui/Modal.vue'
+import Button from '@/components/ui/Button.vue'
+import type { Transaction } from '@/types/transaction'
+import TransactionForm from '@/views/Dashboard/components/transactions/TransactionForm.vue'
 
 
 const props = defineProps<{

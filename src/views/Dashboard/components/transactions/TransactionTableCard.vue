@@ -1,13 +1,12 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import Input from '../ui/Input.vue'
-import Select from '../ui/Select.vue'
-import TransactionTable from './TransactionTable.vue'
+import Input from '@/components/ui/Input.vue'
+import Select from '@/components/ui/Select.vue'
+import TransactionTable from '@/views/Dashboard/components/transactions/TransactionTable.vue'
 
-import { categories } from '../../mocks/transactionsMock'
-import { useTransactionStore } from '../../stores/transactionStore'
-import { useTransactionFilter } from '../../composables/useTransactionFilter'
-
+import { categories } from '@/mocks/transactionsMock'
+import { useTransactionStore } from '@/stores/transactionStore'
+import { useTransactionFilter } from '@/composables/useTransactionFilter'
 const store = useTransactionStore()
 
 const transactions = computed(() => store.transactions)

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { watch } from 'vue'
-import { useMaskedInput } from '../../composables/useMaskedInput'
+import { useMaskedInput } from '@/composables/useMaskedInput'
 
 const props = defineProps<{
   modelValue: number | undefined

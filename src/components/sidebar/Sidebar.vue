@@ -2,9 +2,7 @@
 </script>
 
 <template>
-  <!-- Sidebar oculta em tablet/mobile. Exibe apenas em telas lg+ -->
   <aside class="hidden lg:flex w-48 lg:w-64 bg-neutral-50 border-r border-neutral-200 h-screen flex-col p-2 lg:p-6">
-      <!-- Mobile menu button -->
       <div class="md:hidden flex items-center justify-between p-4 bg-neutral-50 border-b border-neutral-200">
         <div class="flex items-center gap-2">
           <div class="w-10 h-10 rounded-full flex items-center justify-center !bg-primary">
@@ -12,7 +10,6 @@
           </div>
           <h1 class="text-base font-bold text-neutral-900">Finanças</h1>
         </div>
-        <!-- Aqui pode-se adicionar um botão para abrir o menu lateral -->
       </div>
     <div class="mb-8 flex items-center gap-4">
       <div class="w-12 h-12 rounded-full flex items-center justify-center !bg-primary" >

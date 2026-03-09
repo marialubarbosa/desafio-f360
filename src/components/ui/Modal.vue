@@ -24,7 +24,6 @@ function close() {
         <div
           class="w-full max-w-[440px] mx-2 md:mx-0 rounded-xl md:rounded-3xl bg-white shadow-xl overflow-hidden"
         >
-          <!-- header -->
           <div class="flex justify-between items-start p-4 md:p-6">
             <div>
               <h2 class="text-2xl font-semibold text-gray-900">
@@ -46,7 +45,6 @@ function close() {
 
           <div class="border-t border-neutral-200"></div>
 
-          <!-- body -->
           <div class="p-4 md:p-6">
             <slot />
           </div>

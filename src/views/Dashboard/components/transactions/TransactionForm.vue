@@ -2,19 +2,19 @@
 import { Form, useForm } from 'vee-validate'
 import { toFormValidator } from '@vee-validate/zod'
 
-import { transactionSchema, type TransactionFormData } from '../../schemas/transactionSchema'
+import { transactionSchema, type TransactionFormData } from '@/schemas/transactionSchema'
 
-import { useFormField } from '../../composables/useFormField'
-import FormField from '../ui/FormField.vue'
+import { useFormField } from '@/composables/useFormField'
+import FormField from '@/components/ui/FormField.vue'
 
-import Input from '../ui/Input.vue'
-import Select from '../ui/Select.vue'
-import Segmented from '../ui/Segmented.vue'
-import Button from '../ui/Button.vue'
-import InputMoney from '../ui/InputMoney.vue'
-import DateInput from '../ui/DateInput.vue'
+import Input from '@/components/ui/Input.vue'
+import Select from '@/components/ui/Select.vue'
+import Segmented from '@/components/ui/Segmented.vue'
+import Button from '@/components/ui/Button.vue'
+import InputMoney from '@/components/ui/InputMoney.vue'
+import DateInput from '@/components/ui/DateInput.vue'
 
-import { categories } from '../../mocks/transactionsMock'
+import { categories } from '@/mocks/transactionsMock'
 
 const emit = defineEmits(['submit', 'close'])
 

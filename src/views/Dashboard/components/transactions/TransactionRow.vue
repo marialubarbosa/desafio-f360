@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Badge from '../ui/Badge.vue'
+import Badge from '@/components/ui/Badge.vue'
 
 interface Transaction {
   id: string

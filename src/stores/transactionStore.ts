@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import type { Transaction } from '../types/transaction'
+import type { Transaction } from '@/types/transaction'
 
 export const useTransactionStore = defineStore('transactions', {
   state: () => ({
