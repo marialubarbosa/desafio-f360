@@ -1,76 +1,91 @@
 
+
 # desafio-f360
-Gerenciador de Transações Financeiras
 
-## Arquitetura Avançada
+Este projeto é uma implementação de uma listagem de transações financeiras desenvolvida como parte de um desafio técnico. O objetivo principal foi construir uma interface performática capaz de lidar com um grande volume de dados, mantendo boa organização de código e boas práticas de desenvolvimento frontend.
 
-O projeto segue uma arquitetura modular, separando responsabilidades em pastas específicas:
+A aplicação permite visualizar, filtrar e explorar uma lista de transações financeiras simuladas.
 
-- **components/**: Componentes Vue reutilizáveis, organizados por domínio.
-- **layouts/**: Layouts globais para páginas.
-- **views/**: Páginas principais da aplicação.
-- **stores/**: Gerenciamento de estado (Pinia).
-- **services/**: Serviços para lógica de negócio e integração (ex: API, mocks).
-- **composables/**: Hooks reutilizáveis (Vue 3 Composition API).
-- **schemas/**: Schemas de validação (ex: Zod).
-- **types/**: Tipos TypeScript globais.
-- **utils/**: Funções utilitárias e helpers.
-- **constants/**: Constantes globais do projeto.
-- **mocks/**: Dados mockados para desenvolvimento.
 
-## Aliases de Imports
+## Índice
 
-Para facilitar a manutenção e evitar imports relativos complexos, utilize os aliases definidos em `tsconfig.app.json` e `vite.config.ts`:
+- [Sobre o Projeto](#sobre-o-projeto)
+- [Instalação](#instalacao)
+- [Rodando o Projeto](#rodando-o-projeto)
+- [Estrutura de Pastas](#estrutura-de-pastas)
+- [Decisões Técnicas](#decisoes-tecnicas)
+- [Screenshots](#screenshots)
+- [Boas Práticas](#boas-praticas)
+- [Estilização com Tailwind CSS](#estilizacao-com-tailwind-css)
 
-- `@/` → `src/`
-- `@components/` → `src/components/`
-- `@views/` → `src/views/`
-- `@stores/` → `src/stores/`
-- `@services/` → `src/services/`
-- `@composables/` → `src/composables/`
-- `@schemas/` → `src/schemas/`
-- `@types/` → `src/types/`
-- `@utils/` → `src/utils/`
-- `@constants/` → `src/constants/`
-- `@layouts/` → `src/layouts/`
-- `@mocks/` → `src/mocks/`
 
-## Boas Práticas
+## Sobre o Projeto
 
-- Componentes e arquivos em `kebab-case` para Vue, `camelCase` para arquivos TypeScript.
-- Separação clara de responsabilidades.
-- Uso de barrel files (`index.ts`) para facilitar imports.
-- Serviços desacoplados da UI.
-- Utilização de schemas para validação de dados.
-- Utilização de composables para lógica reutilizável.
+Aplicação para gerenciamento de transações financeiras, construída com Vue 3, Vite, TypeScript, Pinia e Tailwind CSS. O objetivo é demonstrar arquitetura escalável, boas práticas e código limpo.
 
-## Estilização com Tailwind CSS
+## Instalação
 
-O projeto já está configurado para usar Tailwind CSS via Vite. Para começar:
+Clone o repositório e instale as dependências:
 
-1. Instale as dependências:
+```bash
+git clone <url-do-repositorio>
+cd desafio-f360
+npm install
+# ou yarn
+```
 
-   ```bash
-   npm install
-   # ou yarn
-   ```
+## Rodando o Projeto
 
-2. As diretivas do Tailwind (`@tailwind base`, `@tailwind components` e `@tailwind utilities`) estão em `src/style.css`.
+Para rodar em modo desenvolvimento:
 
-3. Importe o CSS global em `src/main.ts` (já feito):
+```bash
+npm run dev
+# ou yarn dev
+```
 
-   ```ts
-   import './style.css'
-   ```
+Para build de produção:
 
-4. Modifique `tailwind.config.js` para ajustar os caminhos ou estender o tema.
+```bash
+npm run build
+# ou yarn build
+```
 
-5. Execute o servidor de desenvolvimento:
-
-   ```bash
-   npm run dev
-   ```
-
-6. Utilize classes utilitárias do Tailwind nos componentes.
+## Estrutura de Pastas
 
 ```
+src/
+   components/      # Componentes Vue reutilizáveis
+   layouts/         # Layouts globais
+   views/           # Páginas principais
+   stores/          # Estado global (Pinia)
+   services/        # Serviços de API/lógica
+   composables/     # Hooks reutilizáveis
+   schemas/         # Schemas de validação (Zod)
+   types/           # Tipos TypeScript globais
+   utils/           # Funções utilitárias
+   constants/       # Constantes globais
+   mocks/           # Dados mockados
+   assets/          # Imagens e assets estáticos
+```
+
+## Decisões Técnicas
+
+- **Vue 3 + Vite + TypeScript**: Para performance, tipagem e DX moderna.
+- **Pinia**: Gerenciamento de estado simples e escalável.
+- **Tailwind CSS**: Rapidez e padronização visual.
+- **Zod**: Validação de schemas de formulário.
+- **Aliases de Imports**: Facilita manutenção e evita imports relativos longos.
+- **Arquitetura Modular**: Separação clara de responsabilidades.
+- **Barrel Files**: Facilita imports e refatoração.
+- **Mocks**: Permite desenvolvimento sem backend.
+
+## Screenshots
+
+Adicione aqui prints da aplicação rodando:
+
+![Dashboard](image.png)
+![Modal de Transação](image-1.png)
+
+
+
+
