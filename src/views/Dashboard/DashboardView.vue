@@ -11,7 +11,7 @@ import { generateTransactions } from '@mocks/transactionsMock'
 const store = useTransactionStore()
 const isModalOpen = ref<boolean>(false)
 const modalType = ref<'add' | 'delete'>('add')
-const selectedTransaction = ref<Transaction | null>(null)
+const selectedTransaction = ref<Transaction | undefined>(undefined)
 
 onMounted(() => {
   if (store.transactions.length === 0) {
@@ -29,7 +29,7 @@ function addTransaction(updated: Transaction) {
 
 function openAddModal() {
   modalType.value = 'add'
-  selectedTransaction.value = null
+  selectedTransaction.value = undefined
   isModalOpen.value = true
 }
 

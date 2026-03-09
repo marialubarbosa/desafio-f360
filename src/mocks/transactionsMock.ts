@@ -24,7 +24,15 @@ export const categories = [
 ]
 
 function randomItem<T>(arr: T[]): T {
-  return arr[Math.floor(Math.random() * arr.length)]
+  if (arr.length === 0) {
+    throw new Error('Array vazio passado para randomItem')
+  }
+  const item = arr[Math.floor(Math.random() * arr.length)]
+  // Garantir nunca undefined
+  if (item === undefined) {
+    return arr[0]
+  }
+  return item
 }
 
 function randomDate() {

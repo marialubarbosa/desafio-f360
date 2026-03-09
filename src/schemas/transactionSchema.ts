@@ -18,10 +18,12 @@ export const transactionSchema = z.object({
     .string()
     .min(10, 'Informe a data')
     .refine((value) => {
-      const [day, month, year] = value.split('/').map(Number)
-
+      const [dayStr, monthStr, yearStr] = value.split('/')
+      const day = Number(dayStr)
+      const month = Number(monthStr)
+      const year = Number(yearStr)
+      if (!day || !month || !year) return false
       const date = new Date(year, month - 1, day)
-
       return (
         date.getFullYear() === year &&
         date.getMonth() === month - 1 &&
