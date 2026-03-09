@@ -1,8 +1,5 @@
 # Dependências
 node_modules/
-package-lock.json
-yarn.lock
-pnpm-lock.yaml
 
 # Build
 dist/
@@ -20,7 +17,6 @@ dist-ssr/
 *.swp
 *.swo
 *~
-.DS_Store
 *.sublime-project
 *.sublime-workspace
 .vscode-test
@@ -50,5 +46,4 @@ coverage/
 .nyc_output/
 
 # Miscellaneous
-.env.*.local
 *.pem

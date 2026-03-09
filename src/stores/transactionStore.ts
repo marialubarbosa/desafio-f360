@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import type { Transaction } from '../types/transaction'
+import type { Transaction } from '@/types/transaction'
 
 export const useTransactionStore = defineStore('transactions', {
   state: () => ({
@@ -28,11 +28,15 @@ export const useTransactionStore = defineStore('transactions', {
     },
 
     addTransaction(transaction: Transaction) {
+      transaction.id = crypto.randomUUID()
       this.transactions.unshift(transaction)
     },
 
     removeTransaction(id: string) {
-      this.transactions = this.transactions.filter(t => t.id !== id)
+      const index =this.transactions.findIndex(t => t.id === id)
+      if (index !== -1) {
+        this.transactions.splice(index, 1)
+      }
     }
   }
 })
