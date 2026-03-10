@@ -1,5 +1,15 @@
 import { defineStore } from 'pinia'
-import type { Transaction } from '@/types/transaction'
+import type { NewTransaction, Transaction } from '@/types/transaction'
+
+function getTransactionMonthKey(transaction: Transaction): string {
+  const date = new Date(transaction.date)
+
+  if (Number.isNaN(date.getTime())) {
+    return transaction.date
+  }
+
+  return `${date.getFullYear()}-${date.getMonth()}`
+}
 
 export const useTransactionStore = defineStore('transactions', {
   state: () => ({
@@ -20,6 +30,26 @@ export const useTransactionStore = defineStore('transactions', {
     balance(): number {
       return this.totalIncome - this.totalExpense
     },
+
+    monthlyAverageBalance(): number {
+      const incomeTransactions = this.transactions.filter(t => t.type === 'income')
+
+      if (incomeTransactions.length === 0) return 0
+
+      const months = new Set(incomeTransactions.map(getTransactionMonthKey))
+
+      return this.totalIncome / months.size
+    },
+
+    monthlyAverageExpense(): number {
+      const expenseTransactions = this.transactions.filter(t => t.type === 'expense')
+
+      if (expenseTransactions.length === 0) return 0
+
+      const months = new Set(expenseTransactions.map(getTransactionMonthKey))
+
+      return this.totalExpense / months.size
+    }
   },
 
   actions: {
@@ -27,9 +57,13 @@ export const useTransactionStore = defineStore('transactions', {
       this.transactions = transactions
     },
 
-    addTransaction(transaction: Transaction) {
-      transaction.id = crypto.randomUUID()
-      this.transactions.unshift(transaction)
+    addTransaction(transaction: NewTransaction) {
+      const newTransaction: Transaction = {
+        ...transaction,
+        id: crypto.randomUUID()
+      }
+
+      this.transactions.unshift(newTransaction)
     },
 
     removeTransaction(id: string) {

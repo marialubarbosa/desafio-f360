@@ -3,6 +3,7 @@ import { computed } from 'vue'
 import { Doughnut } from 'vue-chartjs'
 import {
   Chart as ChartJS,
+  type ChartOptions,
   ArcElement,
   Tooltip,
   Legend
@@ -42,7 +43,7 @@ const data = computed(() => {
   }
 })
 
-const options = {
+const options: ChartOptions<'doughnut'> = {
   responsive: true,
   cutout: '70%',
   plugins: {

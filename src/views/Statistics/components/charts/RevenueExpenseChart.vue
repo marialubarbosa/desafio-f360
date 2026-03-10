@@ -3,6 +3,7 @@ import { computed } from 'vue'
 import { Bar } from 'vue-chartjs'
 import {
   Chart as ChartJS,
+  type ChartOptions,
   Title,
   Tooltip,
   Legend,
@@ -61,7 +62,7 @@ const data = computed(() => {
   }
 })
 
-const options = {
+const options: ChartOptions<'bar'> = {
   responsive: true,
   plugins: {
     legend: {

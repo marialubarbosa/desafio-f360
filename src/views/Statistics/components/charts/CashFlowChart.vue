@@ -3,6 +3,7 @@ import { computed } from 'vue'
 import { Line } from 'vue-chartjs'
 import {
   Chart as ChartJS,
+  type ChartOptions,
   LineElement,
   PointElement,
   CategoryScale,
@@ -26,6 +27,10 @@ const data = computed(() => {
 
   const labels = dailyCashFlow.value.map(item => {
     const [year, month, day] = item.date.split('-').map(Number)
+
+    if (year === undefined || month === undefined || day === undefined) {
+      return item.date
+    }
 
     const date = new Date(year, month - 1, day)
 
@@ -52,7 +57,7 @@ const data = computed(() => {
   }
 })
 
-const options = {
+const options: ChartOptions<'line'> = {
   responsive: true,
   plugins: {
     legend: {

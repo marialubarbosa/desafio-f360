@@ -8,3 +8,5 @@ export interface Transaction {
   category: string
   date: string
 }
+
+export type NewTransaction = Omit<Transaction, 'id'>

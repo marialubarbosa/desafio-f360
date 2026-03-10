@@ -1,6 +1,24 @@
 import { describe, it, expect, vi } from 'vitest'
 import { useMaskedInputNumber, useMaskedInputString } from './useMaskedInput'
 
+function createInputEvent(input: HTMLInputElement): Event {
+  const event = new Event('input')
+
+  Object.defineProperty(event, 'target', {
+    value: input,
+    configurable: true
+  })
+
+  return event
+}
+
+function createKeyboardEvent(key: string): KeyboardEvent {
+  return new KeyboardEvent('keydown', {
+    key,
+    cancelable: true
+  })
+}
+
 describe('useMaskedInputNumber', () => {
   it('formats value, strips non-digits and emits parsed number', () => {
     const formatter = vi.fn((digits: string) => `(${digits})`)
@@ -12,7 +30,7 @@ describe('useMaskedInputNumber', () => {
     const input = document.createElement('input')
     input.value = '12a3b'
 
-    handleInput({ target: input } as Event, emit)
+    handleInput(createInputEvent(input), emit)
 
     expect(formatter).toHaveBeenCalledWith('123')
     expect(parser).toHaveBeenCalledWith('123')
@@ -31,7 +49,7 @@ describe('useMaskedInputNumber', () => {
     const input = document.createElement('input')
     input.value = '123456'
 
-    handleInput({ target: input } as Event, emit)
+    handleInput(createInputEvent(input), emit)
 
     expect(formatter).toHaveBeenCalledWith('123')
     expect(parser).toHaveBeenCalledWith('123')
@@ -41,8 +59,10 @@ describe('useMaskedInputNumber', () => {
   it('blocks non-numeric keys', () => {
     const { preventInvalidKeys } = useMaskedInputNumber(d => d, d => Number(d))
 
-    const preventDefault = vi.fn()
-    preventInvalidKeys({ key: 'a', preventDefault } as unknown as KeyboardEvent)
+    const event = createKeyboardEvent('a')
+    const preventDefault = vi.spyOn(event, 'preventDefault')
+
+    preventInvalidKeys(event)
 
     expect(preventDefault).toHaveBeenCalled()
   })
@@ -53,8 +73,11 @@ describe('useMaskedInputNumber', () => {
     const allowedKeys = ['5', 'Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'Tab']
 
     allowedKeys.forEach((key) => {
-      const preventDefault = vi.fn()
-      preventInvalidKeys({ key, preventDefault } as unknown as KeyboardEvent)
+      const event = createKeyboardEvent(key)
+      const preventDefault = vi.spyOn(event, 'preventDefault')
+
+      preventInvalidKeys(event)
+
       expect(preventDefault).not.toHaveBeenCalled()
     })
   })
@@ -71,7 +94,7 @@ describe('useMaskedInputString', () => {
     const input = document.createElement('input')
     input.value = '12x34'
 
-    handleInput({ target: input } as Event, emit)
+    handleInput(createInputEvent(input), emit)
 
     expect(formatter).toHaveBeenCalledWith('1234')
     expect(parser).toHaveBeenCalledWith('1234')
@@ -90,7 +113,7 @@ describe('useMaskedInputString', () => {
     const input = document.createElement('input')
     input.value = '123456'
 
-    handleInput({ target: input } as Event, emit)
+    handleInput(createInputEvent(input), emit)
 
     expect(formatter).toHaveBeenCalledWith('123')
     expect(parser).toHaveBeenCalledWith('123')
@@ -100,8 +123,10 @@ describe('useMaskedInputString', () => {
   it('blocks non-numeric keys', () => {
     const { preventInvalidKeys } = useMaskedInputString(d => d, d => d)
 
-    const preventDefault = vi.fn()
-    preventInvalidKeys({ key: 'a', preventDefault } as unknown as KeyboardEvent)
+    const event = createKeyboardEvent('a')
+    const preventDefault = vi.spyOn(event, 'preventDefault')
+
+    preventInvalidKeys(event)
 
     expect(preventDefault).toHaveBeenCalled()
   })
@@ -112,8 +137,11 @@ describe('useMaskedInputString', () => {
     const allowedKeys = ['5', 'Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'Tab']
 
     allowedKeys.forEach((key) => {
-      const preventDefault = vi.fn()
-      preventInvalidKeys({ key, preventDefault } as unknown as KeyboardEvent)
+      const event = createKeyboardEvent(key)
+      const preventDefault = vi.spyOn(event, 'preventDefault')
+
+      preventInvalidKeys(event)
+
       expect(preventDefault).not.toHaveBeenCalled()
     })
   })

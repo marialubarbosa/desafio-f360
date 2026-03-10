@@ -1,12 +1,23 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest'
 import { setActivePinia, createPinia } from 'pinia'
 import { useTransactionStore } from './transactionStore'
-import type { Transaction } from '@/types/transaction'
+import type { NewTransaction, Transaction } from '@/types/transaction'
 
 function createTransaction(overrides: Partial<Transaction> = {}): Transaction {
   return {
     id: '1',
     description: 'Transação teste',
+    value: 100,
+    category: 'Outros',
+    type: 'expense',
+    date: '2024-01-01',
+    ...overrides
+  }
+}
+
+function createNewTransaction(overrides: Partial<NewTransaction> = {}): NewTransaction {
+  return {
+    description: 'Nova transação',
     value: 100,
     category: 'Outros',
     type: 'expense',
@@ -57,7 +68,7 @@ describe('useTransactionStore', () => {
   it('adds a transaction', () => {
     const store = useTransactionStore()
 
-    const transaction = createTransaction({
+    const transaction = createNewTransaction({
       description: 'Freelance',
       type: 'income',
       value: 1000
@@ -76,17 +87,17 @@ describe('useTransactionStore', () => {
     const store = useTransactionStore()
 
     const randomUUIDSpy = vi.spyOn(crypto, 'randomUUID')
-      .mockReturnValueOnce('id-1')
-      .mockReturnValueOnce('id-2')
+      .mockReturnValueOnce('11111111-1111-1111-1111-111111111111')
+      .mockReturnValueOnce('22222222-2222-2222-2222-222222222222')
 
-    store.addTransaction(createTransaction({ description: 'Primeira' }))
-    store.addTransaction(createTransaction({ description: 'Segunda' }))
+    store.addTransaction(createNewTransaction({ description: 'Primeira' }))
+    store.addTransaction(createNewTransaction({ description: 'Segunda' }))
 
     expect(randomUUIDSpy).toHaveBeenCalledTimes(2)
     expect(store.transactions).toHaveLength(2)
-    expect(store.transactions[0]?.id).toBe('id-2')
+    expect(store.transactions[0]?.id).toBe('22222222-2222-2222-2222-222222222222')
     expect(store.transactions[0]?.description).toBe('Segunda')
-    expect(store.transactions[1]?.id).toBe('id-1')
+    expect(store.transactions[1]?.id).toBe('11111111-1111-1111-1111-111111111111')
   })
 
   it('removes a transaction by id', () => {
@@ -172,5 +183,73 @@ describe('useTransactionStore', () => {
     ])
 
     expect(store.balance).toBe(-200)
+  })
+
+  it('returns zero monthly average balance when there are no income transactions', () => {
+    const store = useTransactionStore()
+
+    store.setTransactions([
+      createTransaction({ type: 'expense', value: 300, date: '2024-01-10' })
+    ])
+
+    expect(store.monthlyAverageBalance).toBe(0)
+  })
+
+  it('returns zero monthly average expense when there are no expense transactions', () => {
+    const store = useTransactionStore()
+
+    store.setTransactions([
+      createTransaction({ type: 'income', value: 1000, date: '2024-01-10' })
+    ])
+
+    expect(store.monthlyAverageExpense).toBe(0)
+  })
+
+  it('calculates monthly average balance grouped by distinct income months', () => {
+    const store = useTransactionStore()
+
+    store.setTransactions([
+      createTransaction({ type: 'income', value: 1000, date: '2024-01-10' }),
+      createTransaction({ type: 'income', value: 500, date: '2024-01-20' }),
+      createTransaction({ type: 'income', value: 900, date: '2024-02-05' }),
+      createTransaction({ type: 'expense', value: 300, date: '2024-02-15' })
+    ])
+
+    expect(store.monthlyAverageBalance).toBe(1200)
+  })
+
+  it('calculates monthly average expense grouped by distinct expense months', () => {
+    const store = useTransactionStore()
+
+    store.setTransactions([
+      createTransaction({ type: 'expense', value: 200, date: '2024-01-10' }),
+      createTransaction({ type: 'expense', value: 100, date: '2024-01-20' }),
+      createTransaction({ type: 'expense', value: 500, date: '2024-03-05' }),
+      createTransaction({ type: 'income', value: 1000, date: '2024-03-15' })
+    ])
+
+    expect(store.monthlyAverageExpense).toBe(400)
+  })
+
+  it('uses the raw date as fallback key when calculating monthly average balance with invalid dates', () => {
+    const store = useTransactionStore()
+
+    store.setTransactions([
+      createTransaction({ type: 'income', value: 400, date: 'invalid-date-a' }),
+      createTransaction({ type: 'income', value: 200, date: 'invalid-date-b' })
+    ])
+
+    expect(store.monthlyAverageBalance).toBe(300)
+  })
+
+  it('uses the raw date as fallback key when calculating monthly average expense with invalid dates', () => {
+    const store = useTransactionStore()
+
+    store.setTransactions([
+      createTransaction({ type: 'expense', value: 90, date: 'invalid-date-a' }),
+      createTransaction({ type: 'expense', value: 210, date: 'invalid-date-b' })
+    ])
+
+    expect(store.monthlyAverageExpense).toBe(150)
   })
 })
