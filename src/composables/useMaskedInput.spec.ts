@@ -2,77 +2,119 @@ import { describe, it, expect, vi } from 'vitest'
 import { useMaskedInputNumber, useMaskedInputString } from './useMaskedInput'
 
 describe('useMaskedInputNumber', () => {
-  it('You must format the value and output the parser correctly', () => {
-    const formatter = (digits: string) => `(${digits})`
-    const parser = (digits: string) => Number(digits)
+  it('formats value, strips non-digits and emits parsed number', () => {
+    const formatter = vi.fn((digits: string) => `(${digits})`)
+    const parser = vi.fn((digits: string) => Number(digits))
 
     const { handleInput, displayValue } = useMaskedInputNumber(formatter, parser)
-
     const emit = vi.fn()
 
     const input = document.createElement('input')
-    input.value = '123abc'
+    input.value = '12a3b'
 
-    const event = { target: input } as unknown as Event
+    handleInput({ target: input } as Event, emit)
 
-    handleInput(event, emit)
-
+    expect(formatter).toHaveBeenCalledWith('123')
+    expect(parser).toHaveBeenCalledWith('123')
     expect(displayValue.value).toBe('(123)')
     expect(input.value).toBe('(123)')
     expect(emit).toHaveBeenCalledWith(123)
   })
+
+  it('limits digits by maxLength before formatting and parsing', () => {
+    const formatter = vi.fn((d: string) => d)
+    const parser = vi.fn((d: string) => Number(d))
+
+    const { handleInput } = useMaskedInputNumber(formatter, parser, 3)
+    const emit = vi.fn()
+
+    const input = document.createElement('input')
+    input.value = '123456'
+
+    handleInput({ target: input } as Event, emit)
+
+    expect(formatter).toHaveBeenCalledWith('123')
+    expect(parser).toHaveBeenCalledWith('123')
+    expect(emit).toHaveBeenCalledWith(123)
+  })
+
+  it('blocks non-numeric keys', () => {
+    const { preventInvalidKeys } = useMaskedInputNumber(d => d, d => Number(d))
+
+    const preventDefault = vi.fn()
+    preventInvalidKeys({ key: 'a', preventDefault } as unknown as KeyboardEvent)
+
+    expect(preventDefault).toHaveBeenCalled()
+  })
+
+  it('allows numeric and navigation keys', () => {
+    const { preventInvalidKeys } = useMaskedInputNumber(d => d, d => Number(d))
+
+    const allowedKeys = ['5', 'Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'Tab']
+
+    allowedKeys.forEach((key) => {
+      const preventDefault = vi.fn()
+      preventInvalidKeys({ key, preventDefault } as unknown as KeyboardEvent)
+      expect(preventDefault).not.toHaveBeenCalled()
+    })
+  })
 })
 
-it('You must limit the digits by maxLength', () => {
-  const formatter = (d: string) => d
-  const parser = (d: string) => d
+describe('useMaskedInputString', () => {
+  it('formats value, strips non-digits and emits parsed string', () => {
+    const formatter = vi.fn((digits: string) => `${digits.slice(0, 2)}-${digits.slice(2)}`)
+    const parser = vi.fn((digits: string) => digits)
 
-  const { handleInput } = useMaskedInputString(formatter, parser, 3)
+    const { handleInput, displayValue } = useMaskedInputString(formatter, parser)
+    const emit = vi.fn()
 
-  const emit = vi.fn()
+    const input = document.createElement('input')
+    input.value = '12x34'
 
-  const input = document.createElement('input')
-  input.value = '123456'
+    handleInput({ target: input } as Event, emit)
 
-  const event = { target: input } as unknown as Event
+    expect(formatter).toHaveBeenCalledWith('1234')
+    expect(parser).toHaveBeenCalledWith('1234')
+    expect(displayValue.value).toBe('12-34')
+    expect(input.value).toBe('12-34')
+    expect(emit).toHaveBeenCalledWith('1234')
+  })
 
-  handleInput(event, emit)
+  it('limits digits by maxLength before formatting and parsing', () => {
+    const formatter = vi.fn((d: string) => d)
+    const parser = vi.fn((d: string) => d)
 
-  expect(emit).toHaveBeenCalledWith('123')
-})
+    const { handleInput } = useMaskedInputString(formatter, parser, 3)
+    const emit = vi.fn()
 
-it('You must block non-numeric keys', () => {
-  const formatter = (d: string) => d
-  const parser = (d: string) => d
+    const input = document.createElement('input')
+    input.value = '123456'
 
-  const { preventInvalidKeys } = useMaskedInputString(formatter, parser)
+    handleInput({ target: input } as Event, emit)
 
-  const preventDefault = vi.fn()
+    expect(formatter).toHaveBeenCalledWith('123')
+    expect(parser).toHaveBeenCalledWith('123')
+    expect(emit).toHaveBeenCalledWith('123')
+  })
 
-  const event = {
-    key: 'a',
-    preventDefault
-  } as unknown as KeyboardEvent
+  it('blocks non-numeric keys', () => {
+    const { preventInvalidKeys } = useMaskedInputString(d => d, d => d)
 
-  preventInvalidKeys(event)
+    const preventDefault = vi.fn()
+    preventInvalidKeys({ key: 'a', preventDefault } as unknown as KeyboardEvent)
 
-  expect(preventDefault).toHaveBeenCalled()
-})
+    expect(preventDefault).toHaveBeenCalled()
+  })
 
-it('You must allow numeric keys', () => {
-  const formatter = (d: string) => d
-  const parser = (d: string) => d
+  it('allows numeric and navigation keys', () => {
+    const { preventInvalidKeys } = useMaskedInputString(d => d, d => d)
 
-  const { preventInvalidKeys } = useMaskedInputString(formatter, parser)
+    const allowedKeys = ['5', 'Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'Tab']
 
-  const preventDefault = vi.fn()
-
-  const event = {
-    key: '5',
-    preventDefault
-  } as unknown as KeyboardEvent
-
-  preventInvalidKeys(event)
-
-  expect(preventDefault).not.toHaveBeenCalled()
+    allowedKeys.forEach((key) => {
+      const preventDefault = vi.fn()
+      preventInvalidKeys({ key, preventDefault } as unknown as KeyboardEvent)
+      expect(preventDefault).not.toHaveBeenCalled()
+    })
+  })
 })
