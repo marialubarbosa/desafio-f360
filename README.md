@@ -4,7 +4,7 @@
 
 Este projeto é uma implementação de uma listagem de transações financeiras desenvolvida como parte de um desafio técnico. O objetivo principal foi construir uma interface performática capaz de lidar com um grande volume de dados, mantendo boa organização de código e boas práticas de desenvolvimento frontend.
 
-A aplicação permite visualizar, filtrar e explorar uma lista de transações financeiras simuladas.
+A aplicação permite visualizar, filtrar e explorar uma lista de transações financeiras simuladas. Além de adicionar e remover transações, acompanhar indicadores consolidados e analisar dados em gráficos na página de estatísticas.
 
 
 ## Índice
@@ -51,6 +51,22 @@ npm run build
 # ou yarn build
 ```
 
+## Funcionalidades
+
+### Dashboard
+
+- Cards de resumo financeiro (receitas, despesas e saldo).
+- Listagem de transações com virtualização para grande volume de dados.
+- Filtros com debounce por texto/categoria/tipo.
+- Modal para criação e remoção de transações.
+
+### Estatísticas
+
+- Resumo financeiro reutilizado do dashboard.
+- Visualização de tendências por mês.
+- Distribuição de despesas por categoria.
+- Fluxo de caixa acumulado por dia.
+
 ## Estrutura de Pastas
 
 ```
@@ -75,6 +91,7 @@ src/
 - **Pinia**: Gerenciamento de estado simples e escalável.
 - **Tailwind CSS**: Rapidez e padronização visual.
 - **Zod**: Validação de schemas de formulário.
+- **Composable de analytics** para separar visualização e regras de cálculo.
 - **Aliases de Imports**: Facilita manutenção e evita imports relativos longos.
 - **Arquitetura Modular**: Separação clara de responsabilidades.
 - **Barrel Files**: Facilita imports e refatoração.
@@ -99,8 +116,12 @@ npm run coverage
 ```
 
 Testes implementados:
-- **Composables**: `useFormField`, `useMaskedInput`, `useTransactionFilter`
-- **Store**: `transactionStore` (Pinia)
+
+- `useFormField`
+- `useMaskedInput`
+- `useTransactionFilter`
+- `transactionStore`
+- `useTransactionAnalytics`
 
 ## Screenshots
 ![Dashboard](image.png)
