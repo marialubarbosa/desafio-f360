@@ -14,6 +14,7 @@ A aplicação permite visualizar, filtrar e explorar uma lista de transações f
 - [Rodando o Projeto](#rodando-o-projeto)
 - [Estrutura de Pastas](#estrutura-de-pastas)
 - [Decisões Técnicas](#decisoes-tecnicas)
+- [Testes](#testes)
 - [Screenshots](#screenshots)
 - [Boas Práticas](#boas-praticas)
 - [Estilização com Tailwind CSS](#estilizacao-com-tailwind-css)
@@ -78,11 +79,30 @@ src/
 - **Arquitetura Modular**: Separação clara de responsabilidades.
 - **Barrel Files**: Facilita imports e refatoração.
 - **Mocks**: Permite desenvolvimento sem backend.
+- **Animações com Transition e TransitionGroup**: Implementadas para transições suaves na entrada/saída de componentes, como no dashboard, lista de transações e modais, utilizando CSS transitions para melhor UX.
+- **Testes com Vitest**: Cobertura de testes unitários para composables e stores, assegurando qualidade e manutenção do código.
+
+## Testes
+
+O projeto utiliza **Vitest** para testes unitários, com foco em composables, stores e lógica de negócio. Os testes garantem a qualidade e confiabilidade do código.
+
+Para executar os testes:
+
+```bash
+npm run test
+```
+
+Para executar com cobertura:
+
+```bash
+npm run coverage
+```
+
+Testes implementados:
+- **Composables**: `useFormField`, `useMaskedInput`, `useTransactionFilter`
+- **Store**: `transactionStore` (Pinia)
 
 ## Screenshots
-
-Adicione aqui prints da aplicação rodando:
-
 ![Dashboard](image.png)
 ![Modal de Transação](image-1.png)
 
