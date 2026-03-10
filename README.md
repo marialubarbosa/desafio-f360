@@ -1,110 +1,141 @@
-
-
 # desafio-f360
 
-Este projeto é uma implementação de uma listagem de transações financeiras desenvolvida como parte de um desafio técnico. O objetivo principal foi construir uma interface performática capaz de lidar com um grande volume de dados, mantendo boa organização de código e boas práticas de desenvolvimento frontend.
+Aplicação de gestão financeira desenvolvida como desafio técnico, focada em performance, organização de código e experiência de uso.
 
-A aplicação permite visualizar, filtrar e explorar uma lista de transações financeiras simuladas.
+O projeto permite:
+- visualizar transações financeiras;
+- filtrar por descrição, categoria e tipo;
+- adicionar e remover transações;
+- acompanhar indicadores consolidados;
+- analisar dados em gráficos na página de estatísticas.
 
+## Últimas atualizações
 
-## Índice
+- Nova rota de **Estatísticas** (`/statistics`) com visão analítica.
+- Inclusão de gráficos com **Chart.js** + **vue-chartjs**:
+   - Receitas vs Despesas;
+   - Despesas por Categoria;
+   - Fluxo Monetário (acumulado diário).
+- Composable de analytics (`useTransactionAnalytics`) para cálculos derivados.
+- Navegação lateral com acesso rápido para Dashboard e Estatísticas.
+- Cobertura de testes expandida para analytics e regras de negócio da store.
 
-- [Sobre o Projeto](#sobre-o-projeto)
-- [Instalação](#instalacao)
-- [Rodando o Projeto](#rodando-o-projeto)
-- [Estrutura de Pastas](#estrutura-de-pastas)
-- [Decisões Técnicas](#decisoes-tecnicas)
-- [Testes](#testes)
-- [Screenshots](#screenshots)
-- [Boas Práticas](#boas-praticas)
-- [Estilização com Tailwind CSS](#estilizacao-com-tailwind-css)
+## Stack
 
+- Vue 3
+- Vite
+- TypeScript
+- Pinia
+- Tailwind CSS
+- Vee Validate + Zod
+- Vue Router
+- Vue Virtual Scroller
+- Vitest
 
-## Sobre o Projeto
+## Requisitos
 
-Aplicação para gerenciamento de transações financeiras, construída com Vue 3, Vite, TypeScript, Pinia e Tailwind CSS. O objetivo é demonstrar arquitetura escalável, boas práticas e código limpo.
+- Node.js 18+ (recomendado)
+- npm 9+
 
 ## Instalação
-
-Clone o repositório e instale as dependências:
 
 ```bash
 git clone <url-do-repositorio>
 cd desafio-f360
 npm install
-# ou yarn
 ```
 
-## Rodando o Projeto
+## Execução
 
-Para rodar em modo desenvolvimento:
+### Desenvolvimento
 
 ```bash
 npm run dev
-# ou yarn dev
 ```
 
-Para build de produção:
+### Build de produção
 
 ```bash
 npm run build
-# ou yarn build
 ```
 
-## Estrutura de Pastas
+### Preview da build
 
+```bash
+npm run preview
 ```
+
+## Scripts disponíveis
+
+- `npm run dev` — inicia ambiente de desenvolvimento.
+- `npm run build` — valida tipos e gera build de produção.
+- `npm run preview` — sobe preview local da build.
+- `npm run test` — executa testes com Vitest.
+- `npm run coverage` — executa testes com relatório de cobertura.
+
+## Funcionalidades
+
+### Dashboard
+
+- Cards de resumo financeiro (receitas, despesas e saldo).
+- Listagem de transações com virtualização para grande volume de dados.
+- Filtros com debounce por texto/categoria/tipo.
+- Modal para criação e remoção de transações.
+
+### Estatísticas
+
+- Resumo financeiro reutilizado do dashboard.
+- Visualização de tendências por mês.
+- Distribuição de despesas por categoria.
+- Fluxo de caixa acumulado por dia.
+
+## Estrutura de pastas (resumo)
+
+```text
 src/
-   components/      # Componentes Vue reutilizáveis
-   layouts/         # Layouts globais
-   views/           # Páginas principais
-   stores/          # Estado global (Pinia)
-   services/        # Serviços de API/lógica
-   composables/     # Hooks reutilizáveis
-   schemas/         # Schemas de validação (Zod)
-   types/           # Tipos TypeScript globais
-   utils/           # Funções utilitárias
-   constants/       # Constantes globais
-   mocks/           # Dados mockados
-   assets/          # Imagens e assets estáticos
+   components/                # Componentes reutilizáveis (UI, header, sidebar)
+   composables/               # Hooks reutilizáveis e seus testes
+   layouts/                   # Layouts globais
+   mocks/                     # Geração de dados simulados
+   router/                    # Definição de rotas
+   schemas/                   # Schemas de validação (Zod)
+   stores/                    # Estado global (Pinia)
+      transactions/
+         analytics/             # Cálculos analíticos e testes
+   types/                     # Tipos globais
+   views/
+      Dashboard/               # Tela principal de transações
+      Statistics/              # Tela de estatísticas e gráficos
 ```
 
-## Decisões Técnicas
+## Decisões técnicas
 
-- **Vue 3 + Vite + TypeScript**: Para performance, tipagem e DX moderna.
-- **Pinia**: Gerenciamento de estado simples e escalável.
-- **Tailwind CSS**: Rapidez e padronização visual.
-- **Zod**: Validação de schemas de formulário.
-- **Aliases de Imports**: Facilita manutenção e evita imports relativos longos.
-- **Arquitetura Modular**: Separação clara de responsabilidades.
-- **Barrel Files**: Facilita imports e refatoração.
-- **Mocks**: Permite desenvolvimento sem backend.
-- **Animações com Transition e TransitionGroup**: Implementadas para transições suaves na entrada/saída de componentes, como no dashboard, lista de transações e modais, utilizando CSS transitions para melhor UX.
-- **Testes com Vitest**: Cobertura de testes unitários para composables e stores, assegurando qualidade e manutenção do código.
+- **Arquitetura modular** para facilitar manutenção e evolução.
+- **Virtualização de lista** para suportar alto volume (mock de até 30.000 transações).
+- **Store centralizada (Pinia)** com getters de indicadores financeiros.
+- **Composable de analytics** para separar visualização e regras de cálculo.
+- **Validação com Zod + Vee Validate** para formulários mais robustos.
+- **Testes unitários com Vitest** em composables e stores.
 
-## Testes
+## Testes implementados
 
-O projeto utiliza **Vitest** para testes unitários, com foco em composables, stores e lógica de negócio. Os testes garantem a qualidade e confiabilidade do código.
+- `useFormField`
+- `useMaskedInput`
+- `useTransactionFilter`
+- `transactionStore`
+- `useTransactionAnalytics`
 
-Para executar os testes:
+Para rodar:
 
 ```bash
 npm run test
 ```
 
-Para executar com cobertura:
+Cobertura:
 
 ```bash
 npm run coverage
 ```
-
-Testes implementados:
-- **Composables**: `useFormField`, `useMaskedInput`, `useTransactionFilter`
-- **Store**: `transactionStore` (Pinia)
-
-## Screenshots
-![Dashboard](image.png)
-![Modal de Transação](image-1.png)
 
 
 
