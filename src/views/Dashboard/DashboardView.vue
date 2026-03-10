@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { onMounted } from 'vue'
 import SummaryCards from '@/views/Dashboard/components/summary/SummaryCards.vue'
-import { useTransactionStore } from '@stores/transactionStore'
+import { useTransactionStore } from '@/stores/transactions/transactionStore'
 import TransactionTableCard from '@/views/Dashboard/components/transactions/TransactionTableCard.vue'
 import TransactionModal from '@/views/Dashboard/components/transactions/TransactionModal.vue'
-import type { Transaction } from '@/types/transaction'
+import type { NewTransaction, Transaction } from '@/types/transaction'
 import { ref } from 'vue'
 import { generateTransactions } from '@mocks/transactionsMock'
 
@@ -21,7 +21,7 @@ onMounted(() => {
 
 })
 
-function addTransaction(updated: Transaction) {
+function addTransaction(updated: NewTransaction) {
   store.addTransaction({ ...updated })
   isModalOpen.value = false
 }

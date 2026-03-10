@@ -5,7 +5,7 @@ import { useTransactionFilter } from './useTransactionFilter'
 import { nextTick } from 'vue'
 
 vi.mock('@vueuse/core', () => ({
-  useDebounce: (value: any) => value
+  useDebounce: <T>(value: T) => value
 }))
 
 function createTransaction(overrides: Partial<Transaction> = {}): Transaction {

@@ -6,8 +6,8 @@ import { computed } from 'vue'
 const store = useTransactionStore()
 
 const balance = computed(() => `R$ ${store.balance.toFixed(2)}`)
-const totalIncome = computed(() => `R$ ${store.totalIncome.toFixed(2)}`)
-const totalExpense = computed(() => `R$ ${store.totalExpense.toFixed(2)}`)
+const monthlyAverageBalance = computed(() => `R$ ${store.monthlyAverageBalance.toFixed(2)}`)
+const monthlyAverageExpense = computed(() => `R$ ${store.monthlyAverageExpense.toFixed(2)}`)
 
 </script>
 
@@ -20,14 +20,14 @@ const totalExpense = computed(() => `R$ ${store.totalExpense.toFixed(2)}`)
       iconBg="bg-indigo-100 text-indigo-600"
     />
     <FinancesCard
-      title="Receitas"
-      :value="totalIncome"
+      title="Receitas Mensais"
+      :value="monthlyAverageBalance"
       icon="arrow_downward_alt"
       iconBg="bg-emerald-100 text-emerald-600"
     />
     <FinancesCard
-      title="Despesas"
-      :value="totalExpense"
+      title="Despesas Mensais"
+      :value="monthlyAverageExpense"
       icon="arrow_upward_alt"
       iconBg="bg-red-100 text-red-500"
     />

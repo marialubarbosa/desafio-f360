@@ -1,20 +1,44 @@
-import { ref } from 'vue'
+import { ref, type Ref } from 'vue'
 
-export function useMaskedInputNumber(
-  formatter: (digits: string) => string,
-  parser: (digits: string) => number,
+type MaskFormatter = (digits: string) => string
+type MaskParser<TValue> = (digits: string) => TValue
+type MaskEmit<TValue> = (value: TValue) => void
+
+interface UseMaskedInputResult<TValue> {
+  displayValue: Ref<string>
+  handleInput: (event: Event, emit: MaskEmit<TValue>) => void
+  preventInvalidKeys: (event: KeyboardEvent) => void
+}
+
+const ALLOWED_KEYS = new Set([
+  'Backspace',
+  'Delete',
+  'ArrowLeft',
+  'ArrowRight',
+  'Tab'
+])
+
+function extractDigits(value: string, maxLength?: number): string {
+  const digits = value.replace(/\D/g, '')
+
+  return maxLength ? digits.slice(0, maxLength) : digits
+}
+
+function createMaskedInput<TValue>(
+  formatter: MaskFormatter,
+  parser: MaskParser<TValue>,
   maxLength?: number
-) {
+): UseMaskedInputResult<TValue> {
   const displayValue = ref('')
 
-  function handleInput(e: Event, emit: (value: number) => void) {
-    const input = e.target as HTMLInputElement
+  function handleInput(event: Event, emit: MaskEmit<TValue>) {
+    const input = event.target
 
-    let digits = input.value.replace(/\D/g, '')
-
-    if (maxLength) {
-      digits = digits.slice(0, maxLength)
+    if (!(input instanceof HTMLInputElement)) {
+      return
     }
+
+    const digits = extractDigits(input.value, maxLength)
 
     const formatted = formatter(digits)
 
@@ -25,19 +49,11 @@ export function useMaskedInputNumber(
     input.value = formatted
   }
 
-  function preventInvalidKeys(e: KeyboardEvent) {
-    const allowed = [
-      'Backspace',
-      'Delete',
-      'ArrowLeft',
-      'ArrowRight',
-      'Tab'
-    ]
+  function preventInvalidKeys(event: KeyboardEvent) {
+    if (ALLOWED_KEYS.has(event.key)) return
 
-    if (allowed.includes(e.key)) return
-
-    if (!/^\d$/.test(e.key)) {
-      e.preventDefault()
+    if (!/^\d$/.test(event.key)) {
+      event.preventDefault()
     }
   }
 
@@ -48,50 +64,18 @@ export function useMaskedInputNumber(
   }
 }
 
-export function useMaskedInputString(
-  formatter: (digits: string) => string,
-  parser: (digits: string) => string,
+export function useMaskedInputNumber(
+  formatter: MaskFormatter,
+  parser: MaskParser<number>,
   maxLength?: number
-) {
-  const displayValue = ref('')
+): UseMaskedInputResult<number> {
+  return createMaskedInput<number>(formatter, parser, maxLength)
+}
 
-  function handleInput(e: Event, emit: (value: string) => void) {
-    const input = e.target as HTMLInputElement
-
-    let digits = input.value.replace(/\D/g, '')
-
-    if (maxLength) {
-      digits = digits.slice(0, maxLength)
-    }
-
-    const formatted = formatter(digits)
-
-    displayValue.value = formatted
-
-    emit(parser(digits))
-
-    input.value = formatted
-  }
-
-  function preventInvalidKeys(e: KeyboardEvent) {
-    const allowed = [
-      'Backspace',
-      'Delete',
-      'ArrowLeft',
-      'ArrowRight',
-      'Tab'
-    ]
-
-    if (allowed.includes(e.key)) return
-
-    if (!/^\d$/.test(e.key)) {
-      e.preventDefault()
-    }
-  }
-
-  return {
-    displayValue,
-    handleInput,
-    preventInvalidKeys
-  }
+export function useMaskedInputString(
+  formatter: MaskFormatter,
+  parser: MaskParser<string>,
+  maxLength?: number
+): UseMaskedInputResult<string> {
+  return createMaskedInput<string>(formatter, parser, maxLength)
 }

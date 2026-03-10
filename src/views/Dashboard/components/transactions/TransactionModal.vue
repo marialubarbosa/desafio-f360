@@ -4,6 +4,7 @@ import Modal from '@/components/ui/Modal.vue'
 import Button from '@/components/ui/Button.vue'
 import type { Transaction } from '@/types/transaction'
 import TransactionForm from '@/views/Dashboard/components/transactions/TransactionForm.vue'
+import type { TransactionFormData } from '@/schemas/transactionSchema'
 
 
 const props = defineProps<{
@@ -14,13 +15,13 @@ const props = defineProps<{
 
 const deleteDescription = ref<string>(`Tem certeza que deseja excluir esta transação? Esta ação não poderá ser desfeita e removerá permanentemente o registro dos seus relatórios.`);
 const addDescription = ref<string>('Informe os detalhes da sua movimentação financeira.');
+interface TransactionModalEmits {
+  (event: 'update:modelValue', value: boolean): void
+  (event: 'save', value: TransactionFormData): void
+  (event: 'delete'): void
+}
 
-
-  const emit = defineEmits([
-  'update:modelValue',
-  'save',
-  'delete'
-])
+const emit = defineEmits<TransactionModalEmits>()
 
 
 
@@ -36,7 +37,7 @@ function confirm() {
   }
 }
 
-function save(values: any) {
+function save(values: TransactionFormData) {
   emit('save', { ...values })
 }
 
