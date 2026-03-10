@@ -28,11 +28,7 @@ function randomItem<T>(arr: T[]): T {
     throw new Error('Array vazio passado para randomItem')
   }
   const item = arr[Math.floor(Math.random() * arr.length)]
-  // Garantir nunca undefined
-  if (item === undefined) {
-    return arr[0]
-  }
-  return item
+  return item as T
 }
 
 function randomDate() {

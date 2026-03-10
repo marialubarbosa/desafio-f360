@@ -49,13 +49,13 @@ describe('useTransactionStore', () => {
       value: 1000
     })
 
-    vi.spyOn(crypto, 'randomUUID').mockReturnValue('123')
+    vi.spyOn(crypto, 'randomUUID').mockReturnValue('123e4567-e89b-12d3-a456-426614174000')
 
     store.addTransaction(transaction)
 
     expect(store.transactions).toHaveLength(1)
-    expect(store.transactions[0].id).toBe('123')
-    expect(store.transactions[0].description).toBe('Freelance')
+    expect(store.transactions[0]?.id).toBe('123e4567-e89b-12d3-a456-426614174000')
+    expect(store.transactions[0]?.description).toBe('Freelance')
   })
 
   it('removes a transaction by id', () => {
@@ -71,7 +71,7 @@ describe('useTransactionStore', () => {
     store.removeTransaction('1')
 
     expect(store.transactions).toHaveLength(1)
-    expect(store.transactions[0].id).toBe('2')
+    expect(store.transactions[0]?.id).toBe('2')
   })
 
   it('calculates total income', () => {

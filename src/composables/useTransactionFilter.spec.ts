@@ -57,7 +57,7 @@ describe('useTransactionFilter', () => {
     search.value = 'sal'
     await nextTick()
     expect(filteredTransactions.value).toHaveLength(1)
-    expect(filteredTransactions.value[0].description).toBe('Salário')
+    expect(filteredTransactions.value[0]?.description).toBe('Salário')
   })
 
   it('Filters by category', async () => {
@@ -72,7 +72,7 @@ describe('useTransactionFilter', () => {
     type.value = 'expense'
     await nextTick()
     expect(filteredTransactions.value).toHaveLength(1)
-    expect(filteredTransactions.value[0].description).toBe('Supermercado')
+    expect(filteredTransactions.value[0]?.description).toBe('Supermercado')
   })
 
   it('Resets the filters', () => {

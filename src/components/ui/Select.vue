@@ -17,7 +17,7 @@ const emit = defineEmits(['update:modelValue'])
         : 'border-neutral-200 focus:ring-indigo-500'
     ]"
     :value="modelValue"
-    @change="emit('update:modelValue', $event.target.value)"
+    @change="emit('update:modelValue', ($event.target as HTMLSelectElement)?.value)"
   >
     <option value="">Selecione</option>
 
