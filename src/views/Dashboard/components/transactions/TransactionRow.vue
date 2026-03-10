@@ -12,37 +12,38 @@ interface Transaction {
 
 defineProps<{
   transaction: Transaction
+  gridClass?: string
 }>()
 
 const emit = defineEmits(['delete'])
 </script>
 
 <template>
-  <div class=" min-w-[600px] w-full grid grid-cols-6 pl-6 md:pl-6 items-center my-2 md:my-4 text-xs md:text-[14px] gap-1 md:gap-0 overflow-x-auto">
-    <div class="text-neutral-700 font-medium">{{ transaction.description }}</div>
+  <div :class="gridClass" class="h-[72px] w-full items-center border-b border-neutral-100 text-xs md:text-[14px]">
+    <div class="px-4 text-neutral-700 font-medium md:px-6">{{ transaction.description }}</div>
 
-    <div>
+    <div class="px-3 md:px-6">
       <Badge>
         {{ transaction.category }}
       </Badge>
     </div>
 
-    <div>{{ transaction.date }}</div>
+    <div class="px-3 md:px-6">{{ transaction.date }}</div>
 
     <div
       :class="transaction.type === 'income' ? 'text-success' : 'text-danger'"
-      class="text-[14px] font-medium"
+      class="px-3 text-[14px] font-medium md:px-6"
     >
       {{ transaction.type === 'income' ? '+' : '-' }}
       R$ {{ Math.abs(transaction.value).toFixed(2) }}
     </div>
 
-    <div>
+    <div class="px-3 md:px-6">
       <Badge :variant="transaction.type">
         {{ transaction.type === 'income' ? 'Receita' : 'Despesa' }}
       </Badge>
     </div>
-    <div class="flex gap-4 pl-6">
+    <div class="flex px-3 md:px-6">
       <button @click="$emit('delete', transaction)" class="cursor-pointer hover:bg-red-100 rounded-full w-10 h-10 flex items-center justify-center">
         <span class="material-symbols-outlined text-danger">
           delete
