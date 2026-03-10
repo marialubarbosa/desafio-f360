@@ -27,7 +27,7 @@ defineEmits(['delete'])
 </script>
 
 <template>
-  <div class="rounded-3xl border border-neutral-200 bg-white">
+  <div class="rounded-3xl border border-neutral-200 bg-white ">
     <div class="p-4 md:p-6 text-base md:text-[18px] font-semibold">
       Transações Recentes
     </div>

@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import DashboardView from '@views/Dashboard/DashboardView.vue';
+import { useRoute } from 'vue-router';
 import DefaultLayout from '@layouts/DefaultLayout.vue';
 
+const route = useRoute();
 const dashboardView = ref();
 
 function openModalAdd() {
@@ -12,8 +13,8 @@ function openModalAdd() {
 
 
 <template>
-  <DefaultLayout @add="openModalAdd">
-    <DashboardView ref="dashboardView"/>
+  <DefaultLayout :title="route.name === 'Dashboard' ? 'Dashboard' : 'Visão Geral'" @add="openModalAdd">
+    <router-view ref="dashboardView"></router-view>
   </DefaultLayout>
 </template>
 

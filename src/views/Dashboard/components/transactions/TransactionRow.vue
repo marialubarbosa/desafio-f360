@@ -18,7 +18,7 @@ const emit = defineEmits(['delete'])
 </script>
 
 <template>
-  <div class="grid grid-cols-6 pl-6 md:pl-6 items-center my-2 md:my-4 text-xs md:text-[14px] gap-1 md:gap-0">
+  <div class=" min-w-[600px] w-full grid grid-cols-6 pl-6 md:pl-6 items-center my-2 md:my-4 text-xs md:text-[14px] gap-1 md:gap-0 overflow-x-auto">
     <div class="text-neutral-700 font-medium">{{ transaction.description }}</div>
 
     <div>
