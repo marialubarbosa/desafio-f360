@@ -16,7 +16,7 @@ const onItemClick = () => {
   <aside
     v-show="sidebarOpen"
     :class="[
-      'h-full bg-neutral-50 border-r border-neutral-200 flex flex-col p-6 transition-all duration-300 overflow-hidden',
+      'h-full bg-neutral-50 border-r border-neutral-200 flex flex-col p-6 transition-all duration-300 overflow-hidden shrink-0',
       'fixed lg:static top-0 left-0 z-40',
       sidebarOpen ? 'translate-x-0 lg:translate-x-0' : '-translate-x-full lg:translate-x-0'
     ]"
