@@ -48,7 +48,6 @@ const onSubmit = () => {
     type: type.value.value,
     category: category.value.value
   }
-  console.log(transactionData)
   emit('submit', transactionData)
   resetForm()
 }
