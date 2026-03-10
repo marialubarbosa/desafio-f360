@@ -23,7 +23,7 @@ const categoriesOptions = categories.map(c => ({
   value: c
 }))
 
-const { handleSubmit, resetForm, meta } = useForm<TransactionFormData>({
+const { resetForm, meta } = useForm<TransactionFormData>({
   validationSchema: toFormValidator(transactionSchema),
   initialValues: {
     description: '',
@@ -40,14 +40,22 @@ const date = useFormField<string>('date')
 const type = useFormField<'income' | 'expense'>('type')
 const category = useFormField<string>('category')
 
-const onSubmit = handleSubmit((values) => {
-  emit('submit', values)
+const onSubmit = () => {
+  const transactionData: TransactionFormData = {
+    description: description.value.value,
+    value: value.value.value,
+    date: date.value.value,
+    type: type.value.value,
+    category: category.value.value
+  }
+  emit('submit', transactionData)
   resetForm()
-})
+}
 </script>
 
 <template>
-  <Form @submit="onSubmit">
+  <Form v-slot="{ handleSubmit }">
+    <form @submit.prevent="handleSubmit(onSubmit)">
 
     <FormField
       label="Descrição"
@@ -127,5 +135,6 @@ const onSubmit = handleSubmit((values) => {
 
     </div>
 
+    </form>
   </Form>
 </template>

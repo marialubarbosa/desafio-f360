@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import path from 'path'
+import { configDefaults } from 'vitest/config'
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -19,6 +20,18 @@ export default defineConfig({
       '@schemas': path.resolve(__dirname, 'src/schemas'),
       '@types': path.resolve(__dirname, 'src/types'),
       '@mocks': path.resolve(__dirname, 'src/mocks'),
+    },
+  },
+  test: {
+    globals: true,
+    environment: 'happy-dom',
+    coverage: {
+      provider: 'v8',
+      reporter: ['text', 'json', 'html'],
+      exclude: [
+        ...(configDefaults.coverage.exclude ?? []),
+        'src/components/**/*.spec.ts',
+      ],
     },
   },
 })

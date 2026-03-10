@@ -16,7 +16,7 @@ function close() {
 
 <template>
   <Teleport to="body">
-    <Transition name="fade">
+    <Transition name="modal">
       <div
         v-if="modelValue"
         class="fixed inset-0 z-50 flex items-center justify-center bg-black/40"
@@ -55,6 +55,17 @@ function close() {
 </template>
 
 <style>
+.modal-enter-active,
+.modal-leave-active {
+  transition: all 0.3s ease;
+}
+
+.modal-enter-from,
+.modal-leave-to {
+  opacity: 0;
+  transform: scale(0.9) translateY(-20px);
+}
+
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.2s ease;

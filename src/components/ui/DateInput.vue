@@ -1,6 +1,7 @@
+
 <script setup lang="ts">
-import { watch } from 'vue'
-import { useMaskedInput } from '@/composables/useMaskedInput'
+import { watch, computed } from 'vue'
+import { useMaskedInputString } from '@/composables/useMaskedInput'
 
 const props = defineProps<{
   modelValue: string | undefined
@@ -36,7 +37,7 @@ function parser(digits: string) {
 }
 
 const { displayValue, handleInput, preventInvalidKeys } =
-  useMaskedInput(formatter, parser, 8)
+  useMaskedInputString(formatter, parser, 8)
 
 watch(
   () => props.modelValue,
@@ -45,6 +46,8 @@ watch(
   },
   { immediate: true }
 )
+
+const error = computed(() => props.error ?? false)
 </script>
 
 <template>

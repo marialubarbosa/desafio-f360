@@ -52,12 +52,32 @@ function openModalDelete(transaction: Transaction) {
 
 <template>
 
-  <SummaryCards />
-  <TransactionTableCard @delete="openModalDelete" />
+  <Transition name="slide-up" appear>
+    <SummaryCards />
+  </Transition>
+
+  <Transition name="slide-up" appear>
+    <TransactionTableCard @delete="openModalDelete" />
+  </Transition>
 
   <TransactionModal v-model="isModalOpen" :transaction="selectedTransaction" :type="modalType" @save="addTransaction($event)"
     @delete="deleteTransaction" />
 
 </template>
 
-<style scoped></style>
+<style scoped>
+.slide-up-enter-active,
+.slide-up-leave-active {
+  transition: all 0.5s ease;
+}
+
+.slide-up-enter-from {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.slide-up-leave-to {
+  opacity: 0;
+  transform: translateY(-20px);
+}
+</style>

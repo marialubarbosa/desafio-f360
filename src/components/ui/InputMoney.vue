@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { watch } from 'vue'
-import { useMaskedInput } from '@/composables/useMaskedInput'
+import { useMaskedInputNumber } from '@/composables/useMaskedInput'
 
 const props = defineProps<{
   modelValue: number | undefined
@@ -21,12 +21,12 @@ function formatter(digits: string) {
 }
 
 function parser(digits: string) {
-  if (!digits) return undefined
+  if (!digits) return 0
   return Number(digits) / 100
 }
 
 const { displayValue, handleInput, preventInvalidKeys } =
-  useMaskedInput(formatter, parser, 8)
+  useMaskedInputNumber(formatter, parser, 8)
 
 watch(
   () => props.modelValue,
