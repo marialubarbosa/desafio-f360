@@ -14,7 +14,9 @@ function openModalAdd() {
 
 <template>
   <DefaultLayout :title="route.name === 'Dashboard' ? 'Dashboard' : 'Visão Geral'" @add="openModalAdd">
-    <router-view ref="dashboardView"></router-view>
+    <router-view v-slot="{ Component }">
+      <component :is="Component" ref="dashboardView" />
+    </router-view>
   </DefaultLayout>
 </template>
 

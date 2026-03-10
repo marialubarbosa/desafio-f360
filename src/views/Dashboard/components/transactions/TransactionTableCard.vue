@@ -5,7 +5,7 @@ import Select from '@/components/ui/Select.vue'
 import TransactionTable from '@/views/Dashboard/components/transactions/TransactionTable.vue'
 
 import { categories } from '@/mocks/transactionsMock'
-import { useTransactionStore } from '@/stores/transactionStore'
+import { useTransactionStore } from '@/stores/transactions/transactionStore'
 import { useTransactionFilter } from '@/composables/useTransactionFilter'
 const store = useTransactionStore()
 

@@ -1,8 +1,12 @@
 <script setup lang="ts">
 import SummaryCards from '@/views/Dashboard/components/summary/SummaryCards.vue'
-import { useTransactionStore } from '@stores/transactionStore'
+import { useTransactionStore } from '@/stores/transactions/transactionStore'
 import { onMounted, ref } from 'vue'
 import { generateTransactions } from '@/mocks/transactionsMock'
+import RevenueExpenseChart from '@/views/Statistics/components/charts/RevenueExpenseChart.vue'
+import CashFlowChart from '@/views/Statistics/components/charts/CashFlowChart.vue'
+import CategoryChart from '@/views/Statistics/components/charts/CategoryChart.vue'
+import SummaryCharts from './components/SummaryCharts.vue'
 
 const store = useTransactionStore()
 
@@ -21,6 +25,11 @@ onMounted(() => {
   <Transition name="slide-up" appear>
     <SummaryCards />
   </Transition>
+
+  <Transition name="slide-up" appear>
+    <SummaryCharts/>
+  </Transition>
+
 
 </template>
 

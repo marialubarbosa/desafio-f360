@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest'
 import { setActivePinia, createPinia } from 'pinia'
-import { useTransactionStore } from './transactionStore'
+import { useTransactionStore } from './transactions/transactionStore'
 import type { Transaction } from '@/types/transaction'
 
 function createTransaction(overrides: Partial<Transaction> = {}): Transaction {

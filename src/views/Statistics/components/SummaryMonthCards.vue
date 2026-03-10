@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useTransactionStore } from '@/stores/transactionStore'
+import { useTransactionStore } from '@/stores/transactions/transactionStore'
 import FinancesCard from '@/components/ui/FinancesCard.vue'
 import { computed } from 'vue'
 
