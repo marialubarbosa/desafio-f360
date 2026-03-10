@@ -7,6 +7,7 @@ import TransactionTable from '@/views/Dashboard/components/transactions/Transact
 import { categories } from '@/mocks/transactionsMock'
 import { useTransactionStore } from '@/stores/transactions/transactionStore'
 import { useTransactionFilter } from '@/composables/useTransactionFilter'
+import Button from '@/components/ui/Button.vue'
 const store = useTransactionStore()
 
 const transactions = computed(() => store.transactions)
@@ -15,7 +16,8 @@ const {
   search,
   category,
   type,
-  filteredTransactions
+  filteredTransactions,
+  resetFilters
 } = useTransactionFilter(() => transactions.value)
 
 const categoriesOptions = categories.map(c => ({
@@ -53,6 +55,8 @@ defineEmits(['delete'])
           { label: 'Despesa', value: 'expense' }
         ]"
       />
+
+      <Button  label="Limpar" size="md" @click="resetFilters"/>
     </div>
 
     <div v-if="transactions.length > 0" class="">
