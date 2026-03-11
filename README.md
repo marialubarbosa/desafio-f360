@@ -126,7 +126,7 @@ Testes implementados:
 ## Screenshots
 ![Dashboard](image.png)
 ![Modal de Transação](image-1.png)
-
+![Estatísticas](image-2.png)
 
 
 
